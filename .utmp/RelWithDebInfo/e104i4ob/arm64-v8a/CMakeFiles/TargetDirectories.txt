@@ -1,0 +1,5 @@
+C:/Users/lucas_gyfk0mk/Documents/GitHub/ALM_AR_Proj3/.utmp/RelWithDebInfo/e104i4ob/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/lucas_gyfk0mk/Documents/GitHub/ALM_AR_Proj3/.utmp/RelWithDebInfo/e104i4ob/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Users/lucas_gyfk0mk/Documents/GitHub/ALM_AR_Proj3/.utmp/RelWithDebInfo/e104i4ob/arm64-v8a/GameActivity/CMakeFiles/game.dir
+C:/Users/lucas_gyfk0mk/Documents/GitHub/ALM_AR_Proj3/.utmp/RelWithDebInfo/e104i4ob/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+C:/Users/lucas_gyfk0mk/Documents/GitHub/ALM_AR_Proj3/.utmp/RelWithDebInfo/e104i4ob/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir

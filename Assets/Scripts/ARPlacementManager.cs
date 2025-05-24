@@ -31,11 +31,18 @@ public class ARPlacementManager : MonoBehaviour
     {
         if (currentToken == null) return;
 
-        // Check for touch input
+#if UNITY_EDITOR
+        // Allow mouse click for placement in Editor (XR Simulation)
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePosition = Input.mousePosition;
+            PlaceToken(mousePosition);
+        }
+#endif
+        // Check for touch input on device
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-
             if (touch.phase == TouchPhase.Began)
             {
                 // Try to place the token

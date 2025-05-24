@@ -13,6 +13,7 @@ public class EnigmaManager : MonoBehaviour
         public string targetLocation;
         public GameObject virtualToken;
         public Transform targetAnchor;
+        [HideInInspector] public GameObject virtualTokenInstance;
     }
 
     [Header("Enigma Settings")]
@@ -32,13 +33,14 @@ public class EnigmaManager : MonoBehaviour
 
     private void InitializeEnigmas()
     {
-        // Initialize the first enigma
-        if (enigmas.Count > 0)
+        // Instantiate all tokens but only activate the first one
+        for (int i = 0; i < enigmas.Count; i++)
         {
-            enigmas[0].virtualToken.SetActive(true);
-            for (int i = 1; i < enigmas.Count; i++)
+            if (enigmas[i].virtualToken != null)
             {
-                enigmas[i].virtualToken.SetActive(false);
+                Vector3 spawnPos = Camera.main != null ? Camera.main.transform.position + Camera.main.transform.forward * 1.5f : Vector3.zero;
+                enigmas[i].virtualTokenInstance = Instantiate(enigmas[i].virtualToken, spawnPos, Quaternion.identity);
+                enigmas[i].virtualTokenInstance.SetActive(i == 0);
             }
         }
     }
@@ -50,6 +52,12 @@ public class EnigmaManager : MonoBehaviour
             Enigma currentEnigma = enigmas[currentEnigmaIndex];
             riddleText.text = currentEnigma.riddle;
             feedbackText.text = "Find the correct location and place your token!";
+            // Activate only the current token
+            for (int i = 0; i < enigmas.Count; i++)
+            {
+                if (enigmas[i].virtualTokenInstance != null)
+                    enigmas[i].virtualTokenInstance.SetActive(i == currentEnigmaIndex);
+            }
         }
     }
 
@@ -68,14 +76,14 @@ public class EnigmaManager : MonoBehaviour
     private void AdvanceToNextEnigma()
     {
         // Hide current token
-        enigmas[currentEnigmaIndex].virtualToken.SetActive(false);
-        
+        if (enigmas[currentEnigmaIndex].virtualTokenInstance != null)
+            enigmas[currentEnigmaIndex].virtualTokenInstance.SetActive(false);
         currentEnigmaIndex++;
-        
         if (currentEnigmaIndex < enigmas.Count)
         {
             // Show next token
-            enigmas[currentEnigmaIndex].virtualToken.SetActive(true);
+            if (enigmas[currentEnigmaIndex].virtualTokenInstance != null)
+                enigmas[currentEnigmaIndex].virtualTokenInstance.SetActive(true);
             DisplayCurrentEnigma();
         }
         else
@@ -83,7 +91,6 @@ public class EnigmaManager : MonoBehaviour
             // Game completed
             feedbackText.text = "Congratulations! You've completed all enigmas!";
         }
-        
         completionPanel.SetActive(false);
     }
 } 
